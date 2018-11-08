@@ -18,6 +18,7 @@
 ### Как добавить файл на робота
 
 Узнать ip и добавить файл в `/home/nao/some_directory` на роботе. 
+
 Сходить в `/home/nao/naoqi/preferences/autoload.ini` и добавить строчку:
 
     -> [user]
