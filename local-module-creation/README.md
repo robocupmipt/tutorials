@@ -12,7 +12,6 @@
 Можно сделать `git clone` и в этой же папке выполнить:
 
     -> qibuild configure -c toolchain_for_robot
-    
     -> qibuild make -c toolchain_for_robot
 
 ### Как добавить файл на робота
@@ -22,4 +21,4 @@
 Сходить в `/home/nao/naoqi/preferences/autoload.ini` и добавить строчку:
 
     -> [user]
-     -> /path/to/libmymodule.so
+    -> /path/to/libmymodule.so
