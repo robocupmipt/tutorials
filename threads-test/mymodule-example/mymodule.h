@@ -4,6 +4,7 @@
 #include <iostream>
 #include <alcommon/albroker.h>
 #include <alproxies/altexttospeechproxy.h>
+#include <qi/log.hpp>
 
 namespace AL
 {
