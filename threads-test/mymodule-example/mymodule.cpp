@@ -6,7 +6,7 @@
 
 MyModule::MyModule(boost::shared_ptr<AL::ALBroker> broker,
                    const std::string& name)
-  : AL::ALModule(broker, name), tts_(getParentBroker())
+  : AL::ALModule(broker, name)
 {
   // Describe the module here. This will appear on the webpage
   setModuleDescription("My own custom module.");
@@ -33,11 +33,6 @@ MyModule::~MyModule()
 
 void MyModule::init()
 {
-  /**
-   * Init is called just after construction.
-   * Do something or not
-   */
-  std::cout << returnTrue() << std::endl;
 }
 
 bool MyModule::logAfterDelay(){
