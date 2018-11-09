@@ -85,13 +85,18 @@ int main(int argc, char* argv[])
   // Create a proxy to MyModule
   AL::ALProxy proxy(broker, "MyModule");
 
-  proxy.call<bool>("logAfterDelay");
-  proxy.call<bool>("logAfterDelay");
-  proxy.call<bool>("logAfterDelay");
+  int tid;
+  int timeout = 10;
+  AL::ALModule module(broker, "MyModule");
 
-  proxy.pCall("logAfterDelay");
-  proxy.pCall("logAfterDelay");
-  proxy.pCall("logAfterDelay");
+  tid = proxy.pCall("logAfterDelay");
+
+  //it doesn't work
+  module.wait(tid, timeout);
+
+  tid = proxy.pCall("logAfterDelay");
+  //it doesnt't work too
+  module.stop(tid);
 
   return 0;
 }
