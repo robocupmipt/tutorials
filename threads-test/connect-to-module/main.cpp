@@ -4,8 +4,6 @@
 #include <alcommon/alproxy.h>
 #include <alcommon/albroker.h>
 #include <alcommon/almodule.h>
-#include<qi/log.hpp>
-#include <qi/atomic.hpp>
 
 void func(AL::ALProxy proxy)
 {
