@@ -41,10 +41,7 @@ void MyModule::generateEvent()
 void MyModule::callback(){
   try
   {
-    /** Call the say method. */
     tts_.say("sentence to say");
-    /** Note: on the desktop you won't hear anything, but you should see
-    * some logs on the naoqi you are connected to. */
   }
   catch(const AL::ALError&)
   {
