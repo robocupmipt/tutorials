@@ -30,9 +30,9 @@ public:
    */
   virtual void init();
 
-  // After that you may add all your bind method.
+  void generateEvent();
 
-  bool sayWord(const std::string &word);
+  void callback(const std::string &key, const AL::ALValue &value, const AL::ALValue &msg);
 
 private:
   AL::ALTextToSpeechProxy tts_;
