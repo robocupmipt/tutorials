@@ -25,11 +25,13 @@ MyModule::MyModule(boost::shared_ptr<AL::ALBroker> broker,
 
   functionName("callback", getName(), "");
   BIND_METHOD(MyModule::callback);
+
+  memoryProxy.subscribeToEvent("ExampleEvent", "MyModule", "callback");
 }
 
 MyModule::~MyModule()
 {
-  memoryProxy.subscribeToEvent("ExampleEvent", "MyModule", "callback");
+  memoryProxy.unsubscribeToEvent("ExampleEvent", "MyModule");
 }
 
 void MyModule::init()
@@ -42,11 +44,9 @@ void MyModule::generateEvent(const float& value)
 }
 
 void MyModule::callback(){
-  qiLogInfo("Event") << "raise event!" << std::endl;
   try
   {
     tts_.say("sentence to say");
-    qiLogInfo("Event") << "raise event!" << std::endl;
   }
   catch(const AL::ALError&)
   {
