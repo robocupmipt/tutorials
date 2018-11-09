@@ -1,7 +1,7 @@
 #include "mymodule.h"
 #include <iostream>
 #include <qi/log.hpp>
-
+#include <alvalue/alvalue.h>
 
 MyModule::MyModule(boost::shared_ptr<AL::ALBroker> broker,
                    const std::string& name)
@@ -19,9 +19,12 @@ MyModule::MyModule(boost::shared_ptr<AL::ALBroker> broker,
    * functionName(<method_name>, <class_name>, <method_description>);
    * BIND_METHOD(<method_reference>);
    */
-  functionName("raiseEvent", getName(), "Raise event");
+  functionName("generateEvent", getName(), "Generate event");
   addParam("value", "The data associated with the event");
   BIND_METHOD(MyModule::generateEvent);
+
+  functionName("callback", getName(), "");
+  BIND_METHOD(MyModule::callback);
 }
 
 MyModule::~MyModule()
@@ -38,10 +41,12 @@ void MyModule::generateEvent(const float& value)
   memoryProxy.raiseEvent("ExampleEvent", value);
 }
 
-void MyModule::callback(const std::string &key, const AL::ALValue &value, const AL::ALValue &msg){
+void MyModule::callback(){
+  qiLogInfo("Event") << "raise event!" << std::endl;
   try
   {
     tts_.say("sentence to say");
+    qiLogInfo("Event") << "raise event!" << std::endl;
   }
   catch(const AL::ALError&)
   {

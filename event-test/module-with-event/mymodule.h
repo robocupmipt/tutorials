@@ -34,7 +34,7 @@ public:
 
   void generateEvent(const float& value);
 
-  void callback(const std::string &key, const AL::ALValue &value, const AL::ALValue &msg);
+  void callback();
 
 private:
   AL::ALTextToSpeechProxy tts_;
