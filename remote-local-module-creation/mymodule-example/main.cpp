@@ -1,7 +1,5 @@
 #include "mymodule.h"
-
 #include <boost/shared_ptr.hpp>
-
 #include <alcommon/albroker.h>
 #include <alcommon/albrokermanager.h>
 
@@ -23,3 +21,14 @@ extern "C"
     return 0;
   }
 } // extern "C"
+
+#ifdef MYMODULE_IS_REMOTE
+int main(int argc, char* argv[])
+{
+  // pointer to createModule
+  TMainType sig = &_createModule;
+
+  // call main
+  return ALTools::mainFunction("MyModule", argc, argv, sig);
+}
+#endif
