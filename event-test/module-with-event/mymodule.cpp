@@ -20,21 +20,22 @@ MyModule::MyModule(boost::shared_ptr<AL::ALBroker> broker,
    * BIND_METHOD(<method_reference>);
    */
   functionName("raiseEvent", getName(), "Raise event");
+  addParam("value", "The data associated with the event");
   BIND_METHOD(MyModule::raiseEvent);
 }
 
 MyModule::~MyModule()
 {
-
+  memoryProxy.subscribeToEvent("ExampleEvent", "MyModule", "callback");
 }
 
 void MyModule::init()
 {
 }
 
-void MyModule::generateEvent()
+void MyModule::generateEvent(const float& value)
 {
-
+  memoryProxy.raiseEvent("ExampleEvent", value);
 }
 
 void MyModule::callback(){

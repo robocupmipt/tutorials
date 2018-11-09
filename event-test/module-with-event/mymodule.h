@@ -30,7 +30,7 @@ public:
    */
   virtual void init();
 
-  void generateEvent();
+  void generateEvent(const float& value)
 
   void callback(const std::string &key, const AL::ALValue &value, const AL::ALValue &msg);
 
