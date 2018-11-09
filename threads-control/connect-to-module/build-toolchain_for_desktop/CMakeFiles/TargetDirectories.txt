@@ -1,7 +1,0 @@
-/home/vlad/studies/tutorials/threads-control/connect-to-module/build-toolchain_for_desktop/CMakeFiles/rebuild_cache.dir
-/home/vlad/studies/tutorials/threads-control/connect-to-module/build-toolchain_for_desktop/CMakeFiles/install.dir
-/home/vlad/studies/tutorials/threads-control/connect-to-module/build-toolchain_for_desktop/CMakeFiles/list_install_components.dir
-/home/vlad/studies/tutorials/threads-control/connect-to-module/build-toolchain_for_desktop/CMakeFiles/myproject.dir
-/home/vlad/studies/tutorials/threads-control/connect-to-module/build-toolchain_for_desktop/CMakeFiles/install/local.dir
-/home/vlad/studies/tutorials/threads-control/connect-to-module/build-toolchain_for_desktop/CMakeFiles/install/strip.dir
-/home/vlad/studies/tutorials/threads-control/connect-to-module/build-toolchain_for_desktop/CMakeFiles/edit_cache.dir
