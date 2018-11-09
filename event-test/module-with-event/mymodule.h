@@ -32,13 +32,6 @@ public:
 
   // After that you may add all your bind method.
 
-  // Function which prints "Hello!" on standard output
-  void printHello();
-  // Function which prints the word given on parameters
-  void printWord(const std::string &word);
-  // Function which returns true
-  bool returnTrue();
-
   bool sayWord(const std::string &word);
 
 private:

@@ -83,11 +83,9 @@ bool MyModule::returnTrue()
 }
 
 bool MyModule::sayWord(const std::string& word){
-  std::cout << "Saying the phrase in the console..." << std::endl;
-  std::cout << word << std::endl;
+
   try
   {
-
     /** Call the say method. */
     tts_.say(word);
     /** Note: on the desktop you won't hear anything, but you should see
