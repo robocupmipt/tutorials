@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <alcommon/albroker.h>
+#include <alproxies/almemoryproxy.h>
 #include <alproxies/altexttospeechproxy.h>
 #include <alcommon/alproxy.h>
 
