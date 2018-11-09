@@ -5,16 +5,9 @@
 #include <alcommon/albroker.h>
 #include <alcommon/albrokermanager.h>
 
-// we're in a dll, so export the entry point
-#ifdef _WIN32
-# define ALCALL __declspec(dllexport)
-#else
-# define ALCALL
-#endif
-
 extern "C"
 {
-  ALCALL int _createModule(boost::shared_ptr<AL::ALBroker> broker)
+  int _createModule(boost::shared_ptr<AL::ALBroker> broker)
   {
     // init broker with the main broker instance
     // from the parent executable
@@ -25,7 +18,7 @@ extern "C"
     return 0;
   }
 
-  ALCALL int _closeModule(  )
+  int _closeModule(  )
   {
     return 0;
   }
