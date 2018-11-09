@@ -78,7 +78,8 @@ int main(int argc, char* argv[])
   // Create a proxy to MyModule
   AL::ALProxy proxy(broker, "MyModule");
 
-  proxy.call<bool>("sayWord", "Sentence to say!");
+  float value = 0;
+  proxy.callVoid("generateEvent", value);
 
   return 0;
 }
