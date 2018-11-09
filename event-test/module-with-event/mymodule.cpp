@@ -21,7 +21,7 @@ MyModule::MyModule(boost::shared_ptr<AL::ALBroker> broker,
    */
   functionName("raiseEvent", getName(), "Raise event");
   addParam("value", "The data associated with the event");
-  BIND_METHOD(MyModule::raiseEvent);
+  BIND_METHOD(MyModule::generateEvent);
 }
 
 MyModule::~MyModule()
@@ -38,7 +38,7 @@ void MyModule::generateEvent(const float& value)
   memoryProxy.raiseEvent("ExampleEvent", value);
 }
 
-void MyModule::callback(){
+void MyModule::callback(const std::string &key, const AL::ALValue &value, const AL::ALValue &msg){
   try
   {
     tts_.say("sentence to say");
