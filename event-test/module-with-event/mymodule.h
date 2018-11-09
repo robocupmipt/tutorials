@@ -36,5 +36,7 @@ public:
 
 private:
   AL::ALTextToSpeechProxy tts_;
+
+  AL::ALMemoryProxy memoryProxy;
 };
 #endif // MY_MODULE_H

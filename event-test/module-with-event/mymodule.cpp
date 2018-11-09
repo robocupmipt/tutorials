@@ -1,12 +1,11 @@
 #include "mymodule.h"
-
 #include <iostream>
 #include <qi/log.hpp>
 
 
 MyModule::MyModule(boost::shared_ptr<AL::ALBroker> broker,
                    const std::string& name)
-  : AL::ALModule(broker, name), tts_(getParentBroker())
+  : AL::ALModule(broker, name), tts_(getParentBroker()), memoryProxy(getParentBroker())
 {
   // Describe the module here. This will appear on the webpage
   setModuleDescription("My own custom module.");
