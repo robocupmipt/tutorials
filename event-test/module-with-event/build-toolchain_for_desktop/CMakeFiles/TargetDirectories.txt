@@ -1,7 +1,0 @@
-/home/robocup/Robocup/Robocup2019/workspace/MorozovTest/tutorials/event-test/module-with-event/build-toolchain_for_desktop/CMakeFiles/edit_cache.dir
-/home/robocup/Robocup/Robocup2019/workspace/MorozovTest/tutorials/event-test/module-with-event/build-toolchain_for_desktop/CMakeFiles/install/strip.dir
-/home/robocup/Robocup/Robocup2019/workspace/MorozovTest/tutorials/event-test/module-with-event/build-toolchain_for_desktop/CMakeFiles/mymodule.dir
-/home/robocup/Robocup/Robocup2019/workspace/MorozovTest/tutorials/event-test/module-with-event/build-toolchain_for_desktop/CMakeFiles/rebuild_cache.dir
-/home/robocup/Robocup/Robocup2019/workspace/MorozovTest/tutorials/event-test/module-with-event/build-toolchain_for_desktop/CMakeFiles/list_install_components.dir
-/home/robocup/Robocup/Robocup2019/workspace/MorozovTest/tutorials/event-test/module-with-event/build-toolchain_for_desktop/CMakeFiles/install/local.dir
-/home/robocup/Robocup/Robocup2019/workspace/MorozovTest/tutorials/event-test/module-with-event/build-toolchain_for_desktop/CMakeFiles/install.dir

@@ -23,6 +23,10 @@ MyModule::MyModule(boost::shared_ptr<AL::ALBroker> broker,
   addParam("value", "The data associated with the event");
   BIND_METHOD(MyModule::generateEvent);
 
+  functionName("callbackOverCycle", getName(), "Must interrupt cycle");
+  BIND_METHOD(MyModule::callbackOverCycle);
+
+
   functionName("callback", getName(), "");
   BIND_METHOD(MyModule::callback);
 }
@@ -30,16 +34,33 @@ MyModule::MyModule(boost::shared_ptr<AL::ALBroker> broker,
 MyModule::~MyModule()
 {
   memoryProxy.unsubscribeToEvent("ExampleEvent", "MyModule");
+  memoryProxy.unsubscribeToEvent("RightBumperPressed", "MyModule");
 }
 
 void MyModule::init()
 {
   memoryProxy.subscribeToEvent("ExampleEvent", "MyModule", "callback");
+  memoryProxy.subscribeToEvent("RightBumperPressed", "MyModule", "callbackOverCycle");
 }
 
 void MyModule::generateEvent(const float& value)
 {
   memoryProxy.raiseEvent("ExampleEvent", value);
+}
+
+void MyModule::callbackOverCycle() {
+  qiLogInfo("Event") << "Callback can interrupt internal cycle!!!" << std::endl;
+
+  double ptr = memoryProxy.getData("RightBumperPressed");
+  if(ptr > 0.5f) {
+    return;
+  }
+  tts_.say("Interrupted!");
+
+  // cycle in callback
+  while(true) {
+    qi::os::sleep(1);
+  }
 }
 
 void MyModule::callback(){
@@ -52,5 +73,10 @@ void MyModule::callback(){
   catch(const AL::ALError&)
   {
     qiLogError("module.example") << "Could not get proxy to ALTextToSpeech" << std::endl;
+  }
+
+  // we go into internal cycle
+  while(true) {
+    qi::os::sleep(1);
   }
 }

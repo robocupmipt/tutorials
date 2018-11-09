@@ -36,6 +36,7 @@ public:
 
   void callback();
 
+  void callbackOverCycle();
 private:
   AL::ALTextToSpeechProxy tts_;
 
