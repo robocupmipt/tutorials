@@ -5,12 +5,12 @@
 На данный момент в репозитории имеются инструкции:
 
 Для С++:
-* `0_style` - стиль кода, которого необходимо придерживаться.
-* '1_installation' - установка SDK и cross-toolchain.
-* `2_local-module-creation` - создание локального модуля.
-* '3_remote-local-module' - переключение между локальным и удалённым модулем.
-* '4_threads-test' - запуск методов модуля в отдельной нити.
-* '5-threads-control' - 
+* `0_style` 			- стиль кода, которого необходимо придерживаться.
+* `1_installation` 		- установка SDK и cross-toolchain.
+* `2_local-module-creation` 	- создание локального модуля.
+* `3_remote-local-module` 	- переключение между локальным и удалённым модулем.
+* `4_threads-test` 		- запуск методов модуля в отдельной нити.
+* `5-threads-control` 		- управление потоками (wait, kill, isRunning)
 
 Для Python:
 * (Python) Взаимодействие с роботом `sonars-python` 
