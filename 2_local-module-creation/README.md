@@ -17,5 +17,6 @@
 * Добавить файл с расширением .so, который создался в папке /build-.../sdk/lib/naoqi в результате сборки, в `/home/nao/some_directory` на роботе (о том, как это сделать, можно ещё раз прочитать [здесь](https://github.com/robocupmipt/tutorials/blob/master/1_installation/connection-to-the-robot.md)). 
 * В файле `/home/nao/naoqi/preferences/autoload.ini` на роботе добавить строчку:
 
-    -> [user]
-    -> /path/to/libmymodule.so
+        -> [user]
+    
+        -> /path/to/libmymodule.so
