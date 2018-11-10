@@ -18,7 +18,7 @@
 
 Далее мы создаём своего собственного брокера, чтобы с его помощью обращаться к другим модулям, в том числе и к предоставляемым фреймворком по умолчанию:
 
-         boost::shared_ptr<AL::ALBroker> broker = AL::ALBroker::createBroker(brokerName, "0.0.0.0", Ё, pip, pport);
+         boost::shared_ptr<AL::ALBroker> broker = AL::ALBroker::createBroker(brokerName, "0.0.0.0", 54000, pip, pport);
          
 здесь `pip` и `pport` - наш IP-адресс и номер нашего порта, `0.0.0.0` и `54000` - какие-то магические числа, `brokerName` - строковая константа, имя брокера (опять-таки непонятно, за что это отвечает и на что влияет).
 
