@@ -6,8 +6,56 @@
 - `main.cpp` - файл, необходимый для присоединения модуля к системе робота. 
 - `CMakeLists.txt` и `qiproject.xml ` - файлы, необходимые для компиляции с помощью `qibuild`.
 
+В файле `mymodule.h` находится обычное описание класса, который наследует `public AL::ALModule`. Примечательно здесь лишь то, что в приватной секции находится переменная `AL::ALTextToSpeechProxy tts_;` - прокси для модуля `ALTextToSpeech`, необходимые для вызова функций этого модуля (например, `say`, как будет видно в дальнейшем).
 
-Более детально: если скомпилировать наш модуль, то на выходе получим файл с расширением .so, который можно динамически прилинковать к системе робота. При этом нужно использовать toolchain для робота. 
+В файле `mymodule.cpp` находится описание функций, входящих в состав модуля. Примечательно, что при создании объекта вызываются конструкторы `AL::ALModule(broker, name)` и `tts_(getParentBroker())`. 
+
+Далее необходимо определить вызываемые методы. Для этого используются функции:
+
+         functionName(<method_name>, <class_name>, <method_description>);
+         
+         BIND_METHOD(<method_reference>);
+         
+а также необязательные функции, которые добавляют описания к модулю, функциям, возвращаемым значениям и параметрам:
+
+         addParam(<attribut_name>, <attribut_descrption>);
+         
+         setReturn(<return_name>, <return_description>);
+         
+         setModuleDescription(<module_description>);
+         
+### Важная заметка от разработчиков: 
+Bound methods can only take const ref arguments of basic types,
+or AL::ALValue or return basic types or an AL::ALValue.
+
+Далее обратим внимание на метод нашего модуля `MyModule::sayWord`, которая с помощью прокси вызывает функцию, заставляющую робота сказать слово:
+
+         tts_.say(word);
+         
+Теперь рассмотрим файл `main.cpp`, который содержит две функции: `int _createModule(boost::shared_ptr<AL::ALBroker> broker)` и `int _closeModule( )`. Эти функции вызываются при привязке и отвязке библиотеки, соответственно. 
+
+В первой функции выполняются три магических действия, которые из создают наш модулю:
+
+         AL::ALBrokerManager::setInstance(broker->fBrokerManager.lock());
+         
+         AL::ALBrokerManager::getInstance()->addBroker(broker);
+
+         AL::ALModule::createModule<MyModule>(broker, "MyModule");
+         
+Несколько слов про make файл (`CMakeLists.txt`): примечателен он тем, что создаёт разделяемую библиотеку с именем `mymodule` в подпапке `naoqi`:
+
+         qi_create_lib(mymodule SHARED ${_srcs} SUBFOLDER naoqi)
+
+Более детально: при компиляции нашего модуля мы получим файл с расширением .so, который можно динамически прилинковать к системе робота. Важно, что при сборке нужно использовать toolchain для робота, поскольку эта библиотека будет запускать на нём, поэтому и компилировать нужно под его процессор. 
+
+### Как динамически прилинковать библиотеку
+
+* Добавить файл с расширением .so, который создался в папке /build-.../sdk/lib/naoqi в результате сборки, в `/home/nao/some_directory` на роботе (о том, как это сделать, можно ещё раз прочитать [здесь](https://github.com/robocupmipt/tutorials/blob/master/1_installation/connection-to-the-robot.md)). 
+* В файле `/home/nao/naoqi/preferences/autoload.ini` на роботе добавить строчку:
+
+        -> [user]
+    
+        -> /path/to/libmymodule.so
 
 ### Описание программы для подключения к модулю
 В директории `connect-to-module`:
@@ -30,13 +78,9 @@
    
         proxy.call<bool>("sayWord", "Sentence to say!");
    
-Note: Если у вызываемой функции тип возвращаемого значения `void`, то нужно использовать `callVoid` вместо `call`.
-   
-### Как динамически прилинковать библиотеку
+### Note: 
+Если у вызываемой функции тип возвращаемого значения `void`, то нужно использовать `callVoid` вместо `call`.
 
-* Добавить файл с расширением .so, который создался в папке /build-.../sdk/lib/naoqi в результате сборки, в `/home/nao/some_directory` на роботе (о том, как это сделать, можно ещё раз прочитать [здесь](https://github.com/robocupmipt/tutorials/blob/master/1_installation/connection-to-the-robot.md)). 
-* В файле `/home/nao/naoqi/preferences/autoload.ini` на роботе добавить строчку:
+Обратим внимание на файл `CMakeLists.txt`: в нём задаётся, что нужно создать обычный бинарник с именем `myproject`:
 
-        -> [user]
-    
-        -> /path/to/libmymodule.so
+         qi_create_bin(myproject "main.cpp")
