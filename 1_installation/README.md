@@ -32,88 +32,60 @@
 
         -> gedit ~/.bashrc and in the end of the file add: export PATH=${PATH}:${HOME}/.local/bin
 
- # 4) Install SDK and cross-toolchain
+ # 4) Install: SDK and cross-toolchain
 
-    -> git clone https://github.com/MolVlad/Robocup2019
-    
-You should create a new branch with your last name:
-    
-    -> git checkout -b <last_name>
-    
-Then you should write me your login in GitHub, so that I add you to the list of collaborators (link to my page: vk.com/molvlad)
-
-After that you will be able make changes and save them on your branch:
-
-    -> git add <names_of_modified_files>
-    
-    -> git commit -m "<message for the other people"
-    
-    -> git push origin <name_of_branch>
-    
-Note: you should work only in your branch!
-
-Download and unzip to the directory Robocup2019:
-    
-    https://drive.google.com/open?id=162PeZSlJ2_Skj8nzoH5qBYcyolB-7E3t
+Необходимо скачать и разархиваровать [SDK для С++](https://drive.google.com/open?id=1vSsmdZ-FWL_bBMNC06_iaHsDi77jvbwS) и [cross-toolchain](https://drive.google.com/open?id=162PeZSlJ2_Skj8nzoH5qBYcyolB-7E3t) для компиляции кода для запуска на роботе.
 
 # 5) Configuration: qiBuild Toolchains
 
- You can just execute my script:
+Создадим toolchain с именем "desktop", указав вместо "path_to_SDK" путь до разархивированной папки "naoqi-sdk-2.8.2.15-linux64":
  
-    -> ./config_toolchain
-    
- or configure manually:
-
- Configure toolchain for the desktop:
- 
-    -> qitoolchain create desktop Robocup2019/naoqi/toolchain.xml
+    -> qitoolchain create desktop path_to_SDK/toolchain.xml
+  
+Далее добавим конфигурацию в qibuild:
   
     -> qibuild add-config desktop -t desktop
   
-  Configure toolchain for the robot:
+Для того, чтобы запускать код на роботе, необходимо компилировать его с помощью специального cross-toolchain (более подробная информация [тут](http://doc.aldebaran.com/qibuild/beginner/qibuild/aldebaran.html#qibuild-using-aldebaran-packages)).
+
+Создадим toolchain с именем "robot", указав вместо "path_to_cross-toolchain" путь до разархивированной папки "ctc-linux64-atom-2.8.2.15":
   
-    -> qitoolchain create robot /toolchain.xml
+    -> qitoolchain create robot path_to_cross-toolchain/toolchain.xml
   
-    -> qibuild add-config robot -t robot                                       
+Далее добавим конфигурацию в qibuild:
+  
+    -> qibuild add-config robot -t robot    
+    
+Более подробная информация о фреймворке qibuild [здесь](http://doc.aldebaran.com/qibuild/hacking/design/cmake/index.html#term-feed)
+
+# NOTE: 
+
+Если вы удалите или переместите папку с SDK или cross-toolchain'oм, вам придётся заново его конфигурировать. Для этого нужно предварительно удалить информацию о предыдущей конфигурации:
+
+    -> qitoolchain remove --force name_of_toolchain
+    
+Список сконфигурированных toolchain'ов можно посмотреть командой:
+
+    -> qitoolchain list
 
  # 6) Compile the Program C++ with the SDK - ALDEBARAN
 
-Create a new project (if it's necessary, or move to the directory with example):
+Создайте новый проект, если это необходимо:
 
     -> qisrc create template
 
-Then init worktree:
+(или же перейдите в директорию одного из примеров)
+
+Иницируйте рабочее дерево:
 
     -> qibuild init
     
- Below <toolchain> means "toolchain_for_desktop", if you want to build for the desktop, or "toolchain_for_robot" otherwise:
+Далее необходимо сконфигурировать qibuild для использования одного из toolchain и собрать код с помощью него (вместе toolchain нужно указать имя toolchain'а, который вы намереваетесь использовать):
     
-    -> qibuild configure -c <toolchain>
+    -> qibuild configure -c toolchain
     
-    -> qibuild make -c <toolchain>
+    -> qibuild make -c toolchain
     
  # 7) Start the Project 
  
- If you build your project for the desktop:
- 
-    -> cd build-toolchain_for_the_robot/sdk/bin
-    
- Below <example> is the name of your program, <IP_address> - IP address of the robot.
-    
-    -> ./<example> <IP_address>
-    
- If you build your project for the robot:
- 
-     -> cd build-toolchain_for_the_robot/sdk/bin
-     
-    -> scp <example> nao@<IP_address>:/home/nao/<your_directory>
-    
-    -> ssh nao@<IP_address>
-    
-    -> ./<your_directory>/<example> <IP_address>
-    
- To work with the robot you should create on him a new directory with your last name and copy files there. Otherwise everything will be remove.
-    
-# Note:
-
-If you want to create a local module, at the end of building you will get a static library .so, that cannot be run as an ordinary program.
+ В дальнейших пунктах нашего мануала будет подробно рассказано о том, как запускать код и удалённо на своём компьютере, и непосредственно на роботе.
