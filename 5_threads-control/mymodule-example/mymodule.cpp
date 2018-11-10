@@ -38,11 +38,18 @@ void MyModule::init()
 bool MyModule::logAfterDelay(){
   /**
    * Show the log when function started
-   * and then when ended
+   * and then each billion of iterations of iternal cycle
    */
   qiLogInfo("printAfterDelay") << "start" << std::endl;
-  qi::os::sleep(3);
-  qiLogInfo("printAfterDelay") << "end" << std::endl;
+  unsigned int i = 0;
+  while(true) {
+    ++i;
+    if(i % 1000000000 == 0) {
+      qiLogInfo("printAfterDelay") << "iteration " << i << std::endl;
+    }
+  }
+
+  //qiLogInfo("printAfterDelay") << "end" << std::endl;
 
   return true;
 }

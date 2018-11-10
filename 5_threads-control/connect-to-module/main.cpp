@@ -82,21 +82,42 @@ int main(int argc, char* argv[])
    * type res = proxy.call<type>(<bind_methode>, <parameter>, ...);
    */
 
+   // example starts here
+
   // Create a proxy to MyModule
   AL::ALProxy proxy(broker, "MyModule");
 
+  qiLogInfo("main") << "So we start the test" << std::endl;
+
+  // function id
   int tid;
-  int timeout = 10;
-  AL::ALModule module(broker, "MyModule");
+  // timeout in ms = 2 seconds
+  int timeout = 2000;
 
+  // we call function using proxy to module and iit returns the id for that call of the funtion
   tid = proxy.pCall("logAfterDelay");
 
-  //it doesn't work
-  module.wait(tid, timeout);
+  // wait with zero as Vlad asked to do
+  /*
+  if(proxy.wait(tid, 0)) {
+    qiLogInfo("main") << "function logAfterDelay 0 timeout test" << std::endl;
+  }
+  */
 
-  tid = proxy.pCall("logAfterDelay");
-  //it doesnt't work too
-  module.stop(tid);
+  // if function is running after timeout returns true
+  if(proxy.wait(tid, timeout)) {
+    qiLogInfo("main") << "function logAfterDelay works more than 2 seconds" << std::endl;
+  }
+
+  // if function by id is runnning returns true
+  if(proxy.isRunning(tid)) {
+    qiLogInfo("main") << "I am still running" << std::endl;
+  }
+
+  // asks to stop the funtion but does not stop it
+  proxy.stop(tid);
+
+  //tid = proxy.pCall("logAfterDelay");
 
   return 0;
 }
