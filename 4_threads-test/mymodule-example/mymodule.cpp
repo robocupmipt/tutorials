@@ -1,5 +1,4 @@
 #include "mymodule.h"
-
 #include <iostream>
 
 MyModule::MyModule(boost::shared_ptr<AL::ALBroker> broker,
