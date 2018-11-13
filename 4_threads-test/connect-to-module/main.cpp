@@ -1,14 +1,8 @@
 #include <iostream>
 #include <stdlib.h>
-
 #include <alcommon/alproxy.h>
 #include <alcommon/albroker.h>
 #include <alcommon/almodule.h>
-
-void func(AL::ALProxy proxy)
-{
-  proxy.call<bool>("logAfterDelay");
-}
 
 int main(int argc, char* argv[])
 {
