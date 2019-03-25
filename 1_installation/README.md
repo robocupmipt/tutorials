@@ -38,23 +38,23 @@
 
 # 5) Configuration: qiBuild Toolchains
 
-Создадим toolchain с именем "desktop", указав вместо "path_to_SDK" путь до разархивированной папки "naoqi-sdk-2.8.2.15-linux64":
+Создадим toolchain для компиляции под `ubuntu` с именем "linux-sdk", указав вместо "path_to_SDK" путь до разархивированной папки "naoqi-sdk-2.8.2.15-linux64":
  
-    -> qitoolchain create desktop path_to_SDK/toolchain.xml
+    -> qitoolchain create linux-sdk path_to_SDK/toolchain.xml
   
 Далее добавим конфигурацию в qibuild:
   
-    -> qibuild add-config desktop -t desktop
+    -> qibuild add-config linux-sdk -t linux-sdk
   
 Для того, чтобы запускать код на роботе, необходимо компилировать его с помощью специального cross-toolchain (более подробная информация [тут](http://doc.aldebaran.com/qibuild/beginner/qibuild/aldebaran.html#qibuild-using-aldebaran-packages)).
 
-Создадим toolchain с именем "robot", указав вместо "path_to_cross-toolchain" путь до разархивированной папки "ctc-linux64-atom-2.8.2.15":
+Создадим toolchainс именем "atom-sdk" под `робота`, указав вместо "path_to_cross-toolchain" путь до разархивированной папки "ctc-linux64-atom-2.8.2.15":
   
-    -> qitoolchain create robot path_to_cross-toolchain/toolchain.xml
+    -> qitoolchain create atom-sdk path_to_cross-toolchain/toolchain.xml
   
 Далее добавим конфигурацию в qibuild:
   
-    -> qibuild add-config robot -t robot    
+    -> qibuild add-config atom-sdk -t atom-sdk    
     
 Более подробная информация о фреймворке qibuild [здесь](http://doc.aldebaran.com/qibuild/hacking/design/cmake/index.html#term-feed)
 
